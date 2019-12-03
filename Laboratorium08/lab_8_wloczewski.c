@@ -111,8 +111,10 @@ main() {
 			if (znak == '1') wartoscCiaguBinarnego++;
 		}
 	}
+	// poki co nie sprawdza czy nie podano wiecej niz 32 znaki
 	if (licznikZnakow > 0) {
 		printf("wartosc podanego ciagu to: %d\n", wartoscCiaguBinarnego);
 	}
 	printf("Koniec zadania.\n\n");
+
 }
