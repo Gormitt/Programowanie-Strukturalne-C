@@ -63,7 +63,7 @@ main() {
 			while (getchar() != '\n') {}
 			printf("ERROR - blad wczytywania danych, prosze sprobuj ponownie: ");
 		}
-		if (liczba3 == 0 && licznikPetli3 == 1) {
+		if (liczba3 == 0 && licznikPetli3 == 0) {
 			printf("W ciagu nie podano zadnej wartosci\n");
 			break;
 		}
@@ -80,10 +80,12 @@ main() {
 			sredniaGeometryczna *= liczba3;
 		}
 	}
-	sredniaArytmetyczna /= licznikPetli3;
-	sredniaGeometryczna = pow(sredniaGeometryczna, (1 / (double)licznikPetli3));
-	printf("srednia arytmetyczna podanych liczb: %lf\n", sredniaArytmetyczna);
-	printf("srednia geometryczna podanych liczb: %lf\n", sredniaGeometryczna);
+	if (licznikPetli3 > 0) {
+		sredniaArytmetyczna /= licznikPetli3;
+		sredniaGeometryczna = pow(sredniaGeometryczna, (1 / (double)licznikPetli3));
+		printf("srednia arytmetyczna podanych liczb: %lf\n", sredniaArytmetyczna);
+		printf("srednia geometryczna podanych liczb: %lf\n", sredniaGeometryczna);
+	}
 	printf("Koniec programu.\n\n");
 
 	// Zadanie nr. 58
