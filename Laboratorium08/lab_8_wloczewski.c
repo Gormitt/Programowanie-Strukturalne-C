@@ -92,7 +92,7 @@ main() {
 	printf("Zadanie nr. 58 - program do wczytania ciagu binarnego i wyswietlenia jego wartosci\n");
 	printf("Podaj ciag binarny: ");
 	int licznikZnakow = 0;
-	int wartoscCiaguBinarnego = 0;
+	long long wartoscCiaguBinarnego = 0;
 	while (1) {
 		char znak = getchar();
 		if (znak == '\n' && licznikZnakow == 0) {
@@ -107,13 +107,16 @@ main() {
 		}
 		else {
 			licznikZnakow++;
+			if (licznikZnakow > 32) {
+				printf("brak wartosci, przekroczono 32 znaki");
+				break;
+			}
 			wartoscCiaguBinarnego *= 2;
 			if (znak == '1') wartoscCiaguBinarnego++;
 		}
 	}
-	// poki co nie sprawdza czy nie podano wiecej niz 32 znaki
-	if (licznikZnakow > 0) {
-		printf("wartosc podanego ciagu to: %d\n", wartoscCiaguBinarnego);
+	if (licznikZnakow > 0 && licznikZnakow <= 32) {
+		printf("wartosc podanego ciagu to: %lld\n", wartoscCiaguBinarnego);
 	}
 	printf("Koniec zadania.\n\n");
 
