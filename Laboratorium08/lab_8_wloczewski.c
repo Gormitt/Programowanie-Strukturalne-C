@@ -1,6 +1,7 @@
 // Zadania 55 - 61
 
 #include <stdio.h>
+#include <math.h>
 
 main() {
 	/*
@@ -33,7 +34,7 @@ main() {
 		}
 	} 
 	printf("Koniec zadania.\n\n");
-	
+	*/
 	// Zadanie nr. 56
 	int licznikPetli2 = 1;
 	float srednia = 0, liczba2;
@@ -50,7 +51,7 @@ main() {
 	srednia /= 10;
 	printf("Srednia arytmetyczna podanych liczb to: %f\n", srednia);
 	printf("Koniec programu.\n\n");
-	*/
+	
 	// Zadanie nr. 57
 	int licznikPetli3 = 0;
 	double sredniaArytmetyczna = 0, sredniaGeometryczna = 1;
