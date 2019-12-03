@@ -86,5 +86,6 @@ main() {
 	printf("Koniec programu.\n\n");
 
 	// Zadanie nr. 58
+	printf("Zadanie nr. 58 - program do wczytania ciagu binarnego i wyswietlenia jego wartosci\n");
 
 }
