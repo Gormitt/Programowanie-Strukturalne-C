@@ -40,7 +40,7 @@ main() {
 	float srednia = 0, liczba2;
 	printf("Zadanie nr. 56 - program do obliczenia sredniej arytmetycznej 10 liczb\n");
 	while (licznikPetli2 <= 10) {
-		printf("prosze, podja liczbe zmiennoprzecinkowa: ");
+		printf("prosze, podaj liczbe zmiennoprzecinkowa: ");
 		while (scanf_s("%f", &liczba2) != 1 || getchar() != '\n') {
 			while (getchar() != '\n') {}
 			printf("ERROR - niepoprawnie wczytane dane, prosze sprobuj ponownie: ");
@@ -51,7 +51,7 @@ main() {
 	srednia /= 10;
 	printf("Srednia arytmetyczna podanych liczb to: %f\n", srednia);
 	printf("Koniec programu.\n\n");
-	*/
+	
 	// Zadanie nr. 57
 	int licznikPetli3 = 0;
 	double sredniaArytmetyczna = 0, sredniaGeometryczna = 1;
@@ -87,8 +87,32 @@ main() {
 		printf("srednia geometryczna podanych liczb: %lf\n", sredniaGeometryczna);
 	}
 	printf("Koniec programu.\n\n");
-
+	*/
 	// Zadanie nr. 58
 	printf("Zadanie nr. 58 - program do wczytania ciagu binarnego i wyswietlenia jego wartosci\n");
-
+	printf("Podaj ciag binarny: ");
+	int licznikZnakow = 0;
+	int wartoscCiaguBinarnego = 0;
+	while (1) {
+		char znak = getchar();
+		if (znak == '\n' && licznikZnakow == 0) {
+			printf("brak wartosci, bo ciag jest pusty\n");
+			break;
+		}
+		else if (znak == '\n') {
+			break;
+		}
+		else if (znak != '0' && znak != '1') {
+			printf("brak,w ciagu podano niedozwolony znak\n");
+		}
+		else {
+			licznikZnakow++;
+			wartoscCiaguBinarnego *= 2;
+			if (znak == '1') wartoscCiaguBinarnego++;
+		}
+	}
+	if (licznikZnakow > 0) {
+		printf("wartosc podanego ciagu to: %d\n", wartoscCiaguBinarnego);
+	}
+	printf("Koniec zadania.\n\n");
 }
