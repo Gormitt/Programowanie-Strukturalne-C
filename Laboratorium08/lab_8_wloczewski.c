@@ -87,7 +87,7 @@ main() {
 		printf("srednia geometryczna podanych liczb: %lf\n", sredniaGeometryczna);
 	}
 	printf("Koniec programu.\n\n");
-	*/
+	
 	// Zadanie nr. 58
 	printf("Zadanie nr. 58 - program do wczytania ciagu binarnego i wyswietlenia jego wartosci\n");
 	printf("Podaj ciag binarny: ");
@@ -100,24 +100,92 @@ main() {
 			break;
 		}
 		else if (znak == '\n') {
+			printf("wartosc podanego ciagu to: %lld\n", wartoscCiaguBinarnego);
 			break;
 		}
 		else if (znak != '0' && znak != '1') {
-			printf("brak,w ciagu podano niedozwolony znak\n");
+			printf("brak wartosci, w ciagu podano niedozwolony znak\n");
+			break;
 		}
 		else {
 			licznikZnakow++;
 			if (licznikZnakow > 32) {
-				printf("brak wartosci, przekroczono 32 znaki");
+				printf("brak wartosci, przekroczono 32 znaki\n");
 				break;
 			}
 			wartoscCiaguBinarnego *= 2;
 			if (znak == '1') wartoscCiaguBinarnego++;
 		}
 	}
-	if (licznikZnakow > 0 && licznikZnakow <= 32) {
-		printf("wartosc podanego ciagu to: %lld\n", wartoscCiaguBinarnego);
-	}
-	printf("Koniec zadania.\n\n");
+	printf("Koniec programu.\n\n");
+	*/
+	// Zadanie nr. 59
+	double liczba4;
+	int czyszczenieBufora = 0, iloscWpisanychLiczb = 0;
+	double suma = 0, roznica = 0, iloczyn = 1, iloraz = 1;
+	printf("Zadanie nr. 59 - program do wczytania liczb i wykonania opercaji\n");
+	while (1) {
+		if (czyszczenieBufora) {
+			while (getchar() != '\n') {}
+			czyszczenieBufora = 0;
+		}
 
+		char wybor, kolejnyZnak;
+		printf("\n0. Zakoncz program\n");
+		printf("1. Wczytaj liczby\n");
+		printf("2. Dodaj\n");
+		printf("3. Odejmij\n");
+		printf("4. Pomnoz\n");
+		printf("5. Podziel.\n");
+		printf("wybor: ");
+		wybor = getchar();
+		kolejnyZnak = getchar();
+		
+		if (kolejnyZnak == '\n' && wybor >= '0' && wybor <= '5') {
+			if (wybor == '0') {
+				break;
+			}
+			else if (wybor == '1') {
+				printf("wczytaj liczbe: ");
+				while (scanf_s("%lf", &liczba4) != 1 || getchar() != '\n') {
+					while (getchar() != '\n') {}
+					printf("ERROR - blad podczas wczytywania danych, sprobuj ponownie: ");
+				}
+				iloscWpisanychLiczb++;
+				suma += liczba4;
+				iloczyn *= liczba4;
+				if (iloscWpisanychLiczb == 1) {
+					roznica = liczba4;
+					iloraz = liczba4;
+				}
+				else {
+					roznica -= liczba4;
+					iloraz /= liczba4;
+				}
+			}
+			else if (wybor == '2') {
+				printf("suma wszystkich podanych liczb to: %lf\n", suma);
+			}
+			else if (wybor == '3') {
+				printf("roznica wszystkich podanych liczb to: %lf\n", roznica);
+			}
+			else if (wybor == '4') {
+				printf("iloczyn wszystkich podanych liczb to: %lf\n", iloczyn);
+			}
+			else if (wybor == '5') {
+				printf("iloraz wszystkich podanych liczb to: %lf\n", iloraz);
+			}
+			continue;
+		}
+		else if (kolejnyZnak == '\n' && (wybor < '0' || wybor > '5')) {
+			printf("ERROR - nie ma takiej opcji\n");
+			continue;
+		}
+		else {
+			printf("ERROR - niepoprawnie wczytane dane\n");
+			czyszczenieBufora = 1;
+			continue;
+		}
+	}
+	printf("Koniec programu.\n\n");
 }
