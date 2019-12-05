@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <math.h>
 
+#define LICZBA_PI 3.14159265
+
 main() {
 	/*
 	// Zadanie nr. 55
@@ -118,7 +120,7 @@ main() {
 		}
 	}
 	printf("Koniec programu.\n\n");
-	*/
+	
 	// Zadanie nr. 59
 	double liczba4;
 	int czyszczenieBufora = 0, iloscWpisanychLiczb = 0;
@@ -188,4 +190,107 @@ main() {
 		}
 	}
 	printf("Koniec programu.\n\n");
+	*/
+	// Zadanie nr. 60
+	char wybor;			// deklaracja miennej wyboru opcji
+	double pole = 0;	// zmienna na pole, ktore liczymy
+	printf("Zadanie nr. 43 - program do obliczania pola trojkata, wg. wybranej metody\n");
+	while (1) {
+		printf("\nwybierz na podstawie jakich danych program na obliczyc pole:\n");
+		printf("(1) bok i opuszczona na niego wysokosc\n");
+		printf("(2) dwa boki oraz kat pomiedzy nimi\n");
+		printf("(3) trzy boki\n");
+		printf("(4) wyjdz z programu\n");
+		printf("wybierz opcje: ");
+		wybor = getchar();	// pobranie od yzytkownika wyboru
+		while (wybor < '1' || wybor > '4' || getchar() != '\n') {	// jezeli wybor to zla cyfra lub zawiera wiecej niz jeden znak
+			while (getchar() != '\n') {}
+			printf("prosze o wybranie opcji <1, 2, 3, 4> : ");		// zapytaj ponownie
+			wybor = getchar();
+		}
+		// uzytkownik wybral wyjscie z programu
+		if (wybor == '4') {
+			break;
+		}
+		// jezeli wybor to: bok i opuszczona na niego wysokosc
+		else if (wybor == '1') {
+			double bok = 0, wysokosc = 0;	// deklaracja zmiennych na bok i wysokosc
+			printf("\ndlugosc boku trojkata a nastepnie wysokosc\n");
+			do {	// petla bedzie sie powtarzac tak dlugo, az podane wielkosci beda dodatnie
+				printf("pamietaj, aby z podanych dlugosci dalo sie utworzyc trojkat - dlugosci: ");
+				while (scanf_s("%lf %lf", &bok, &wysokosc) != 2 || getchar() != '\n') {	// jezeli podczas wczytywanie wystapi blad lub po danych zostanie wpisany dodatkowy znak
+					while (getchar() != '\n') {}
+					printf("blad wczytywania - spobouj podobnie: ");	// zapytaj ponownie
+				}
+			} while (bok <= 0 || wysokosc <= 0);
+			pole = bok * wysokosc * 0.5;	// gdy wszyskie dane sa poprawne oblicz pole zgodnie z przyjeta formula
+		}
+		// jezeli wybor to dwa boki oraz kat miedzy nimi
+		else if (wybor == '2') {
+			double bok1, bok2, kat;		// zaklderaonie zmienny nach boki i kat miedzy nimi
+			printf("\n(1) radiany\n");
+			printf("(2) stopnie\n");
+			printf("wybierz jednostke dla kata: ");
+			char wybor = getchar();		// zaslaniamy zmienna wyboru aby dac mozliwosc wybrania jednostki kata
+			while (wybor < '1' || wybor > '2' || getchar() != '\n') {	// jezeli wybor to zla cyfra lub zawiera wiecej niz jeden znak
+				while (getchar() != '\n') {}
+				printf("prosze o wybranie opcji <1, 2> : ");		// zapyaj ponownie
+				wybor = getchar();
+			}
+			printf("podaj dlugosci dwoch sasiednich bokow trojkata\n");
+			do {	// petla bedzie sie wykonywac tak dlugo az podane wielkosci beda doatnie
+				printf("pamietaj, aby z podanych dlugosci dalo sie utworzyc trojkat - dlugosci: ");
+				while (scanf_s("%lf %lf", &bok1, &bok2) != 2 || getchar() != '\n') {	// jezli podczsa wczytywania wystapi blad lub po danych zostanie wpisany dodatkowy znak
+					while (getchar() != '\n') {}
+					printf("blad wczytywania - sprobuj ponownie: ");	// zapytaj ponownie
+				}
+			} while (bok1 <= 0 || bok2 <= 0);
+			// gdy wybrana jednostka sa radiany
+			if (wybor == '1') {
+				printf("podaj kat [liczba bedzie rozpatrzona jako radiany]\n");
+				do {	// petala bedzie sie wykonywac tak dlugo az podany kat bedzie z zakresu (0, 1 radian)
+					printf("pamietaj ze kat musi byc mniejszy od 1 radiana: ");
+					while (scanf_s("%lf", &kat) != 1 || getchar() != '\n') {	// jezeli podczas wczytania wystapi blad lub po danych zostanie wpisany dodatkowy znak
+						while (getchar() != '\n') {}
+						printf("blad wczytywania danych - sprobuj ponownie: ");	// zapytaj ponownie
+					}
+				} while (kat >= 1 || kat <= 0);
+				pole = 0.5 * bok1 * bok2 * sin(kat);	// gdy wszystkie dane sa poprawne oblicz pole zgodnie z przyjeta formula
+			}
+			// gdy wybrana jednostka to stopnie
+			else if (wybor == '2') {
+				printf("podaj kat [liczba bedzie rozpatrzona jako stopnie]\n");
+				do {	// petla bedzie wykonywana tak dlugo az podany kat bedzie z zakresu (0, 180 stopni)
+					printf("pamietaj ze kat musi byc mniejszy od 180 stopni: ");
+					while (scanf_s("%lf", &kat) != 1 || getchar() != '\n') {	// jezli podczas wczytania wystapi blad lub po danych zostanie wpisany dodatkowy znak
+						while (getchar() != '\n') {}
+						printf("blad wczytywania danych - sprobuj ponownie: ");	// zapytaj ponownie
+					}
+				} while (kat >= 180 || kat <= 0);
+				// konwersja kata na radiany
+				// stopien <= stopien * radian / stopien = radian
+				kat = kat * LICZBA_PI / 180;
+				pole = 0.5 * bok1 * bok2 * sin(kat);	// gdy wszystkie dane sa poprawne oblicz pole zgdodnie z przyjeta formula
+			}
+		}
+		// jezeli wybrana opcja to trzy boki
+		else if (wybor == '3') {
+			double bok1, bok2, bok3;	// deklaracja zmiennych na trzy boki
+			printf("\npodaj dlugosci trzech obokow trojkata \n");
+			do {	// peta bedzie sie wykonywac tak dlugo az podane wielkosci beda dodatnie i beda spelniac warunki utworzenia trojkata
+				printf("pamietaj, aby z podanych dlugosci dalo sie utworzyc trojkat - dlugosci: ");
+				while (scanf_s("%lf %lf %lf", &bok1, &bok2, &bok3) != 3 || getchar() != '\n') {	// jezeli podczas wczytywanie wystapi blad lub po danych zostanie wpisany dodatkowy znak
+					while (getchar() != '\n') {}
+					printf("blad wczytywania danych - sprobuj poniwnie: ");	// zapytaj ponownie
+				}
+			} while (bok1 >= bok2 + bok3 || bok2 >= bok1 + bok3 || bok3 >= bok1 + bok2 || bok1 <= 0 || bok2 <= 0 || bok3 <= 0);
+			double polowaobwodu = 0.5 * (bok1 + bok2 + bok3);	// obliczenie polowy obwodu (potrzebne do wzoru herona)
+			pole = sqrt(polowaobwodu * (polowaobwodu - bok1) * (polowaobwodu - bok2) * (polowaobwodu - bok3));	// gdy dane sa poprawne oblicz pole wedlug przyjetej formuly
+		}
+		printf("pole tego trojkata wynosi %lf\n", pole);	// na koniec wypisz wynik
+	}
+	printf("Koniec programu.\n\n");
+
+	// Zadanie nr. 61
+	
 }
