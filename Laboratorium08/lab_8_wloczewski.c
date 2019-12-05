@@ -6,7 +6,6 @@
 #define LICZBA_PI 3.14159265
 
 main() {
-	/*
 	// Zadanie nr. 55
 	int liczba1;
 	int rekord1, licznikPetli1 = 0;
@@ -190,7 +189,7 @@ main() {
 		}
 	}
 	printf("Koniec programu.\n\n");
-	*/
+	
 	// Zadanie nr. 60
 	char wybor;			// deklaracja miennej wyboru opcji
 	double pole = 0;	// zmienna na pole, ktore liczymy
@@ -290,7 +289,61 @@ main() {
 		printf("pole tego trojkata wynosi %lf\n", pole);	// na koniec wypisz wynik
 	}
 	printf("Koniec programu.\n\n");
-
-	// Zadanie nr. 61
 	
+	// Zadanie nr. 61
+	int godzina, minuta, godzina1, godzina2, dwukropek, minuta1, minuta2;
+	int czyWyczyscicBufor = 0;
+	printf("Zadanien nr. 61 - program do wczytania godziny\n");
+	while (1) {
+		if (czyWyczyscicBufor) {
+			while (getchar() != '\n') {}
+		}
+		czyWyczyscicBufor = 0;
+
+		printf("Podaj godzine: ");
+		godzina1 = getchar();
+		if (godzina1 == '\n') printf("<enter>");
+		godzina2 = getchar();
+		if (godzina2 == '\n') printf("<enter>");
+		dwukropek = getchar();
+		if (dwukropek == '\n') printf("<enter>");
+		minuta1 = getchar();
+		if (minuta1 == '\n') printf("<enter>");
+		minuta2 = getchar();
+		if (minuta2 == '\n') printf("<enter>");
+
+		if (getchar() != '\n') {
+			czyWyczyscicBufor = 1;
+			printf("ERROR - linia nie zakonczona klawiszem ENTER\n");
+			continue;
+		}
+		else if (!(isdigit(godzina1) && isdigit(godzina2) && isdigit(minuta1) && isdigit(minuta2))) {
+			printf("ERROR - na miejscu przeznaczonym dla liczby stoi inny znak\n");
+			continue;
+		}
+		else if ((char)dwukropek != ':') {
+			printf("ERROR - godziny i minuty nie sa przedzielone dwukropkiem\n");
+			continue;
+		}
+		else {
+			godzina = (godzina1 - 48) * 10 + godzina2 - 48;
+			minuta = (minuta1 - 48) * 10 + minuta2 - 48;
+			if (godzina > 23 || minuta > 59) {
+				printf("ERROR - nie ma takiej godziny\n");
+				continue;
+			}
+			else {
+				break;
+			}
+		}
+	}
+	printf("%d ", minuta);
+
+	if (minuta == 1) printf("minuta");
+	else if (minuta == 2 || minuta == 3 || minuta == 4) printf("minuty");
+	else if ((char)minuta1 != '1' && ((char)minuta2 == '2' || (char)minuta2 == '3' || (char)minuta2 == '4')) printf("minuty");
+	else printf("minut");
+
+	printf(" po godzinie %d\n", godzina);
+	printf("Koniec programu.\n\n");
 }
