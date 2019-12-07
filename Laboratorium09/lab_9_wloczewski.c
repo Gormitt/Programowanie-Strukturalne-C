@@ -108,10 +108,28 @@ void Zadanie65() {
 	KONIEC_PROGRAMU
 }
 
+void Zadanie66() {
+	printf("Zadanie nr. 66 - program do wczytania 10 liczb calkowitych i wypisania ich sredniej\n");
+	double srednia = 0;
+	for (int i = 0; i < 10; i++) {
+		double liczba;
+		printf("prosze podaj liczbe nr. %2d : ", i + 1);
+		while (scanf_s("%lf", &liczba) != 1 || getchar() != '\n') {
+			CzyszczenieBufora();
+			printf("ERROR - ponow wpisanie liczby nr. %d : ", i + 1);
+		}
+		srednia += liczba;
+	}
+	srednia /= 10;
+	printf("srednia arytmetyczna podanych liczb to: %lf\n", srednia);
+	KONIEC_PROGRAMU
+}
+
 main() {
-	//Zadanie62();
-	//Zadanie63();
-	//Zadanie64();
+	Zadanie62();
+	Zadanie63();
+	Zadanie64();
 	Zadanie65();
+	Zadanie66();
 	return 0;
 }
