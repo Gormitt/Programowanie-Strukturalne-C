@@ -127,6 +127,26 @@ void Zadanie72() {
 	KONIEC_PROGRAMU
 }
 
+void Zadanie73() {
+	printf("Zadanie nr. 73 - program do wypisania tabliyc ascii\n");
+	printf("%s\t%s\n", "kod", "symbol");
+	for (int i = 0; i <= 255; i++) {
+		if (i == 0) printf("0\tnull\n");
+		else if (i == 7) printf("7\tbel\n");
+		else if (i == 8) printf("8\tbs\n");
+		else if (i == 9) printf("9\tht\n");
+		else if (i == 10) printf("10\tnl\n");
+		else if (i == 11) printf("11\tvt\n");
+		else if (i == 12) printf("12\tnp\n");
+		else if (i == 13) printf("!3\tcr\n");
+		else if (i == 26) printf("26\teof\n");
+		else if (i == 27) printf("27\tesc\n");
+		else if (i == 126) printf("127\tdel\n");
+		else printf("%d\t%c\n", i, i);
+	}
+	KONIEC_PROGRAMU
+}
+
 void Zadanie74() {
 	int n, suma = 0;
 	printf("Zadanie nr. 74 - program ktory wypisze sume\n");
@@ -147,12 +167,13 @@ void Zadanie74() {
 }
 
 main() {
-	//Zadanie67();
-	//Zadanie68();
-	//Zadanie69();
-	//Zadanie70();
-	//Zadanie71();
-	//Zadanie72();
+	Zadanie67();
+	Zadanie68();
+	Zadanie69();
+	Zadanie70();
+	Zadanie71();
+	Zadanie72();
+	Zadanie73();
 	Zadanie74();
 	return 0;
 }
