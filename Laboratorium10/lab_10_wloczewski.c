@@ -1,6 +1,7 @@
 // Zaadnia 67 – 74
 
 #include <stdio.h>
+#include <math.h>
 
 #define KONIEC_PROGRAMU printf("Koniec programu.\n\n");
 #define ERROR_WCZYTANIE printf("ERROR - blad podczas wczytania danych, prosze spobuj ponownie: ");
@@ -126,12 +127,32 @@ void Zadanie72() {
 	KONIEC_PROGRAMU
 }
 
+void Zadanie74() {
+	int n, suma = 0;
+	printf("Zadanie nr. 74 - program ktory wypisze sume\n");
+	printf("prosze podaj liczbe: ");
+	while (scanf_s("%d", &n) != 1 || getchar() != '\n') {
+		CzyszczenieBufora();
+		ERROR_WCZYTANIE
+	}
+	for (int i = 1; i <= n; i++) {
+		for (int j = 0; j < i; j++) {
+			printf("%d", i);
+			suma += i * pow(10.0, j);
+		}
+		if (i != n) printf("+");
+		else printf(" = %d\n", suma);
+	}
+	KONIEC_PROGRAMU
+}
+
 main() {
 	//Zadanie67();
 	//Zadanie68();
 	//Zadanie69();
 	//Zadanie70();
 	//Zadanie71();
-	Zadanie72();
+	//Zadanie72();
+	Zadanie74();
 	return 0;
 }
