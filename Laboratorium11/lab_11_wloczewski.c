@@ -2,12 +2,36 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 #define KONIEC_PROGRAMU printf("Koniec programu.\n\n");
 #define ERROR_WCZYTANIE printf("ERROR - blad podczas wczytania danych, prosze sprobuj ponownie: ");
 
 void CzyszczenieBufora() {
 	while (getchar() != '\n') {}
+}
+
+void SortowanieTablicy(int* tab, int wielkosc) {// wskaznik tab, posluzy nam jako bufor, do wpisywnaia najmniejszych wartosci z tablicy
+	int elementyDoPosortowania = wielkosc;		// ilosc elementow do posortowania
+	while (elementyDoPosortowania > 1) {
+		int* iterator = tab;					// ustawiam sobie wskaznik do miejsca, od ktorego rozpoczne znajdowanie najmniejszej wartosci
+
+		int najmniejszaWartosc = *iterator;		// inicjalizuje pomocnicza zmienna do przechowania najmniejszej wartosco
+		int* wskDoNajmniejszejWar = iterator;	// inicjalizuje wskaznik do najmniejszej wartosci
+		for (int i = 0; i < elementyDoPosortowania; i++) {	// przechodze przez wszystkie elemtny pozostawione do posortowania
+			if (*iterator < najmniejszaWartosc) {	// jezeli napotkany element jest mniejszy od najmniejszego to nadpisuje najmniejszy
+				najmniejszaWartosc = *iterator;
+				wskDoNajmniejszejWar = iterator;
+			}
+			iterator++;		// przemiszczam wskanzik, aby w nastepnym wykonaniu porowanc kolejna wartosc do najmniejszej zapisanej
+		}					// po zakonczeniu petli posiadamy najmniejsza wartosc, w sprawdzanym obszarze tablicy (od wskaznika tab, do konca)
+		int tmp = *tab;		// wiec zamieniamy nasza najmniejsza wartosc z buforem				
+		*tab = najmniejszaWartosc;
+		*wskDoNajmniejszejWar = tmp;
+
+		tab++;				// przesuwamy bufor o jedno miejsce w prawo, czym zawezamy obszar sortowania kolejnych elementow
+		elementyDoPosortowania--;	// zmniejszamy liczbe elementow do posortowania 
+	}
 }
 
 void Zadanie75() {
@@ -141,25 +165,7 @@ void Zadanie79() {
 	} while (trzebaPosortowac > 1);
 	*/
 	// sortowanie tablicy (algorytm zaproponowany w zadaniu)
-	int indeksWstawiania = 0;
-	while (indeksWstawiania < 10 - 1) {
-		int najmniejszaWartosc; 
-		int indeksNajmniejszejWartosci;
-		for (int i = indeksWstawiania; i < 10; i++) {
-			if (i == indeksWstawiania) {
-				najmniejszaWartosc = tab[i];
-				indeksNajmniejszejWartosci = i;
-			}
-			else if (tab[i] < najmniejszaWartosc) {
-				najmniejszaWartosc = tab[i];
-				indeksNajmniejszejWartosci = i;
-			}
-		}
-		int tmp = tab[indeksWstawiania];
-		tab[indeksWstawiania] = tab[indeksNajmniejszejWartosci];
-		tab[indeksNajmniejszejWartosci] = tmp;
-		indeksWstawiania++;
-	}
+	SortowanieTablicy(&tab[0], 10);
 
 	for (int i = 0; i < 10; i++) {
 		printf("%d ", tab[i]);
@@ -169,11 +175,29 @@ void Zadanie79() {
 	KONIEC_PROGRAMU
 }
 
+void Zadanie80() {
+	int tab[10];
+	printf("Zadanie nr. 80 - program do wylosowania 10 liczb i wypisania ich w kolejnosci\n");
+	for (int i = 0; i < 10; i++) {
+		//tab[i] = rand() % 100 + 1;
+		tab[i] = 12 - i;
+	}
+
+	SortowanieTablicy(&tab[0], 10);
+
+	for (int i = 0; i < 10; i++) {
+		printf("%d\n", tab[i]);
+	}
+	KONIEC_PROGRAMU
+}
+
 main() {
+	srand(time(NULL));
 	//Zadanie75();
 	//Zadanie76();
 	//Zadanie77();
 	//Zadanie78();
-	Zadanie79();
+	//Zadanie79();
+	Zadanie80();
 	return 0;
 }
