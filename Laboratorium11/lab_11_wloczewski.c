@@ -29,7 +29,7 @@ void SortowanieTablicy(int* tab, int wielkosc) {// wskaznik tab, posluzy nam jak
 		*tab = najmniejszaWartosc;
 		*wskDoNajmniejszejWar = tmp;
 
-		tab++;				// przesuwamy bufor o jedno miejsce w prawo, czym zawezamy obszar sortowania kolejnych elementow
+		tab++;						// przesuwamy bufor o jedno miejsce w prawo, czym zawezamy obszar sortowania kolejnych elementow
 		elementyDoPosortowania--;	// zmniejszamy liczbe elementow do posortowania 
 	}
 }
