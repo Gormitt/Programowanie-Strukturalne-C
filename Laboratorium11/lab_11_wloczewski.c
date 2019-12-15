@@ -224,29 +224,29 @@ void Zadanie80() {
 }
 
 void Zadanie81() {
-	int iloscLiczb = 10;     // ilosc liczb do losowanie
-	int min = 1;     // przedzial do losowanie [min, max]
+	int iloscLiczb = 10;	// ilosc liczb do losowanie
+	int min = 1;			// przedzial do losowanie [min, max]
 	int max = 2;
-	float* tab = (float*)malloc(sizeof(float) * iloscLiczb);     // tablica na przechowanie liczb
+	float* tab = (float*)malloc(sizeof(float) * iloscLiczb); // tablica na przechowanie liczb
 	printf("Zadanie nr. 81 - program do wylosowania 10 liczb z przedzialu [1, 2]\n");
 
-	if (tab != NULL) {     // gdy udalo sie poprawnie zaalokowac pamiec
+	if (tab != NULL) { // gdy udalo sie poprawnie zaalokowac pamiec
 		printf("wylosowany zestaw: ");
-		for (int i = 0; i < iloscLiczb; i++) {     // dla kazdej liczby
-			float skala = rand() / (float)RAND_MAX;     // wylosuj liczbe z przedzialu [0, 1]
-			float los = min + skala * (max - min);    // to wyrazenie nam zwraca liczbe losowa z przedzialu [min, max]
+		for (int i = 0; i < iloscLiczb; i++) {		// dla kazdej liczby
+			float skala = rand() / (float)RAND_MAX;	// wylosuj liczbe z przedzialu [0, 1]
+			float los = min + skala * (max - min);	// to wyrazenie nam zwraca liczbe losowa z przedzialu [min, max]
 
-			*(tab + i) = los;     // wpisuje do odpowiedniego wskaznika los
-			printf("%f ", *(tab + i));     // wypisuje go na ekran, aby uzytkownik wiedzial co zostalo wylosowane
+			*(tab + i) = los;			// wpisuje do odpowiedniego wskaznika los
+			printf("%f ", *(tab + i));	// wypisuje go na ekran, aby uzytkownik wiedzial co zostalo wylosowane
 		}
 		printf("\nposortowany zestaw: ");
-		QuickSort(tab, tab + iloscLiczb - 1);     // tak na prawde nie wiem czm to dziala bo nie powinno, funkcja sortujaca jest napisana na wskaznikach typu int ...
+		QuickSort(tab, tab + iloscLiczb - 1);	 // tak na prawde nie wiem czm to dziala bo nie powinno, funkcja sortujaca jest napisana na wskaznikach typu int ...
 		for (int i = 0; i < iloscLiczb; i++) {
-			printf("%f ", *(tab + i));     // wypisuje posortowany zestaw na ekran
+			printf("%f ", *(tab + i));			// wypisuje posortowany zestaw na ekran
 		}
 		printf("\n");
 	}
-	else {     // przypadek nieudanego zaalokowania miejsca na nasza tablice
+	else {	// przypadek nieudanego zaalokowania miejsca na nasza tablice
 		printf("ERROR - nie udalo sie zaalokowac miejsca na tablice\n");
 	}
 	KONIEC_PROGRAMU
