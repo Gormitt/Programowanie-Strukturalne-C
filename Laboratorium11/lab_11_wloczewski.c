@@ -253,7 +253,7 @@ void Zadanie81() {
 }
 
 main() {
-	srand(time(NULL));
+	srand(time(NULL)); // do losowania
 	Zadanie75();
 	Zadanie76();
 	Zadanie77();
