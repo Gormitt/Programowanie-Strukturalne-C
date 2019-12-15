@@ -15,7 +15,7 @@ void CzyszczenieBufora() {
 void QuickSort(int* lewy, int* prawy) {
 	if (lewy >= prawy) return;
 	int* pivot = lewy + (prawy - lewy + 1) / 2;
-	
+
 	int wartPivotu = *pivot;
 	*pivot = *prawy;
 	*prawy = wartPivotu;
@@ -31,7 +31,7 @@ void QuickSort(int* lewy, int* prawy) {
 		}
 		i++;
 	}
-	
+
 	*prawy = *j;
 	*j = wartPivotu;
 
@@ -156,8 +156,8 @@ void Zadanie78() {
 			ERROR_WCZYTANIE
 		}
 	} while (n <= 0 || n > 20);
-	
-	int ciag[21] = {1, 1};
+
+	int ciag[21] = { 1, 1 };
 	for (int i = 2; i < n; i++) {
 		ciag[i] = ciag[i - 2] + ciag[i - 1];
 	}
@@ -198,7 +198,7 @@ void Zadanie79() {
 
 void Zadanie80() {
 	int iloscLiczb = 10;
-	int *tab = (int*)malloc(sizeof(int) * iloscLiczb);
+	int* tab = (int*)malloc(sizeof(int) * iloscLiczb);
 
 	printf("Zadanie nr. 80 - program do wylosowania 10 liczb i wypisania ich w kolejnosci\n");
 	if (tab != NULL) {
@@ -239,7 +239,7 @@ void Zadanie81() {
 			*(tab + i) = los; // wpisuje do odpowiedniego wskaznika los
 			printf("%f ", *(tab + i)); // wypisuje go na ekran, aby uzytkownik wiedzial co zostalo wylosowane
 		}
-		printf("\nposortowany zestaw: "); 
+		printf("\nposortowany zestaw: ");
 		QuickSort(tab, tab + iloscLiczb - 1); // tak na prawde nie wiem czm to dziala bo nie powinno, funkcja sortujaca jest napisana na wskaznikach typu int ...
 		for (int i = 0; i < iloscLiczb; i++) {
 			printf("%f ", *(tab + i)); // wypisuje posortowany zestaw na ekran
