@@ -1,4 +1,5 @@
 // zadania 75 - 81
+// w zadaniach stosuje statyczne alokowanie tablic, wyjatkiem sa rozwiazania dwoch ostatnich zadan
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -11,26 +12,53 @@ void CzyszczenieBufora() {
 	while (getchar() != '\n') {}
 }
 
-void SortowanieTablicy(int* tab, int wielkosc) {// wskaznik tab, posluzy nam jako bufor, do wpisywnaia najmniejszych wartosci z tablicy
-	int elementyDoPosortowania = wielkosc;		// ilosc elementow do posortowania
-	while (elementyDoPosortowania > 1) {
-		int* iterator = tab;					// ustawiam sobie wskaznik do miejsca, od ktorego rozpoczne znajdowanie najmniejszej wartosci
+void QuickSort(int* lewy, int* prawy) {
+	if (lewy >= prawy) return;
+	int* pivot = lewy + (prawy - lewy + 1) / 2;
+	
+	int wartPivotu = *pivot;
+	*pivot = *prawy;
+	*prawy = wartPivotu;
 
-		int najmniejszaWartosc = *iterator;		// inicjalizuje pomocnicza zmienna do przechowania najmniejszej wartosco
-		int* wskDoNajmniejszejWar = iterator;	// inicjalizuje wskaznik do najmniejszej wartosci
-		for (int i = 0; i < elementyDoPosortowania; i++) {	// przechodze przez wszystkie elemtny pozostawione do posortowania
-			if (*iterator < najmniejszaWartosc) {	// jezeli napotkany element jest mniejszy od najmniejszego to nadpisuje najmniejszy
+	int* i = lewy;
+	int* j = lewy;
+	while (i < prawy) {
+		if (*i < wartPivotu) {
+			int tmp = *i;
+			*i = *j;
+			*j = tmp;
+			j++;
+		}
+		i++;
+	}
+	
+	*prawy = *j;
+	*j = wartPivotu;
+
+	QuickSort(lewy, j - 1);
+	QuickSort(j + 1, prawy);
+}
+
+void SortowanieTablicy(int* tab, int wielkosc) {// wskaznik tab, posluzy nam jako bufor, do wpisywnaia najmniejszych wartosci z tablicy
+	int elementyDoPosortowania = wielkosc; // ilosc elementow do posortowania
+	while (elementyDoPosortowania > 1) {
+		int* iterator = tab; // ustawiam sobie wskaznik do miejsca, od ktorego rozpoczne znajdowanie najmniejszej wartosci
+
+		int najmniejszaWartosc = *iterator; // inicjalizuje pomocnicza zmienna do przechowania najmniejszej wartosco
+		int* wskDoNajmniejszejWar = iterator; // inicjalizuje wskaznik do najmniejszej wartosci
+		for (int i = 0; i < elementyDoPosortowania; i++) { // przechodze przez wszystkie elemtny pozostawione do posortowania
+			if (*iterator < najmniejszaWartosc) { // jezeli napotkany element jest mniejszy od najmniejszego to nadpisuje najmniejszy
 				najmniejszaWartosc = *iterator;
 				wskDoNajmniejszejWar = iterator;
 			}
-			iterator++;		// przemiszczam wskanzik, aby w nastepnym wykonaniu porowanc kolejna wartosc do najmniejszej zapisanej
-		}					// po zakonczeniu petli posiadamy najmniejsza wartosc, w sprawdzanym obszarze tablicy (od wskaznika tab, do konca)
-		int tmp = *tab;		// wiec zamieniamy nasza najmniejsza wartosc z buforem				
+			iterator++;	 // przemiszczam wskanzik, aby w nastepnym wykonaniu porowanc kolejna wartosc do najmniejszej zapisanej
+		} // po zakonczeniu petli posiadamy najmniejsza wartosc, w sprawdzanym obszarze tablicy (od wskaznika tab, do konca)
+		int tmp = *tab; // wiec zamieniamy nasza najmniejsza wartosc z buforem				
 		*tab = najmniejszaWartosc;
 		*wskDoNajmniejszejWar = tmp;
 
-		tab++;				// przesuwamy bufor o jedno miejsce w prawo, czym zawezamy obszar sortowania kolejnych elementow
-		elementyDoPosortowania--;	// zmniejszamy liczbe elementow do posortowania 
+		tab++; // przesuwamy bufor o jedno miejsce w prawo, czym zawezamy obszar sortowania kolejnych elementow
+		elementyDoPosortowania--; // zmniejszamy liczbe elementow do posortowania 
 	}
 }
 
@@ -141,63 +169,97 @@ void Zadanie78() {
 }
 
 void Zadanie79() {
-	int tab[10];
+	int iloscLiczb = 10;
+	int* tab = (int*)malloc(sizeof(int) * iloscLiczb);
+
 	printf("Zadanie nr. 79 - program do pobrania 10 liczb i posortowania ich\n");
-	for (int i = 0; i < 10; i++) {
-		printf("podaj liczbe nr. %d - ", i);
-		while (scanf_s("%d", &tab[i]) != 1 || getchar() != '\n') {
-			CzyszczenieBufora();
-			ERROR_WCZYTANIE
-		}
-	}
-	// sortowanie tablicy (bubble sort)
-	/*
-	int trzebaPosortowac = 10;	
-	do {
-		for (int i = 0; i < trzebaPosortowac - 1; i++) {
-			if (tab[i] > tab[i + 1]) {
-				int tmp = tab[i];
-				tab[i] = tab[i + 1];
-				tab[i + 1] = tmp;
+	if (tab != NULL) {
+		for (int i = 0; i < iloscLiczb; i++) {
+			printf("podaj liczbe nr. %d - ", i);
+			while (scanf_s("%d", (tab + i)) != 1 || getchar() != '\n') {
+				CzyszczenieBufora();
+				ERROR_WCZYTANIE
 			}
 		}
-		trzebaPosortowac--;
-	} while (trzebaPosortowac > 1);
-	*/
-	// sortowanie tablicy (algorytm zaproponowany w zadaniu)
-	SortowanieTablicy(&tab[0], 10);
 
-	for (int i = 0; i < 10; i++) {
-		printf("%d ", tab[i]);
+		// sortowanie tablicy (algorytm zaproponowany w zadaniu)
+		SortowanieTablicy(tab, iloscLiczb);
+
+		for (int i = 0; i < iloscLiczb; i++) {
+			printf("%d ", *(tab + i));
+		}
+		printf("\n");
 	}
-	printf("\n");
-	
+	else {
+		printf("ERROR - nie udalo sie zaalokowac miejsca na tablice\b");
+	}
 	KONIEC_PROGRAMU
 }
 
 void Zadanie80() {
-	int tab[10];
+	int iloscLiczb = 10;
+	int *tab = (int*)malloc(sizeof(int) * iloscLiczb);
+
 	printf("Zadanie nr. 80 - program do wylosowania 10 liczb i wypisania ich w kolejnosci\n");
-	for (int i = 0; i < 10; i++) {
-		//tab[i] = rand() % 100 + 1;
-		tab[i] = 12 - i;
+	if (tab != NULL) {
+		printf("tablica nieposortowana: ");
+		for (int i = 0; i < 10; i++) {
+			*(tab + i) = rand() % 100 + 1;
+			printf("%d ", *(tab + i));
+		}
+		printf("\n");
+
+		QuickSort(tab, tab + iloscLiczb - 1);
+
+		printf("tablica posortowana: \t");
+		for (int i = 0; i < 10; i++) {
+			printf("%d ", *(tab + i));
+		}
+		printf("\n");
 	}
+	else {
+		printf("ERROR - nie udalo sie zaalokowac miejsca na talice\n");
+	}
+	KONIEC_PROGRAMU
+}
 
-	SortowanieTablicy(&tab[0], 10);
+void Zadanie81() {
+	int iloscLiczb = 10; // ilosc liczb do losowanie
+	int min = 1; // przedzial do losowanie [min, max]
+	int max = 2;
+	float* tab = (float*)malloc(sizeof(float) * iloscLiczb); // tablica na przechowanie liczb
+	printf("Zadanie nr. 81 - program do wylosowania 10 liczb z przedzialu [1, 2]\n");
 
-	for (int i = 0; i < 10; i++) {
-		printf("%d\n", tab[i]);
+	if (tab != NULL) { // gdy udalo sie poprawnie zaalokowac pamiec
+		printf("wylosowany zestaw: ");
+		for (int i = 0; i < iloscLiczb; i++) { // dla kazdej liczby
+			float skala = rand() / (float)RAND_MAX; // wylosuj liczbe z przedzialu [0, 1]
+			float los = min + skala * (max - min); // to wyrazenie nam zwraca liczbe losowa z przedzialu [min, max]
+
+			*(tab + i) = los; // wpisuje do odpowiedniego wskaznika los
+			printf("%f ", *(tab + i)); // wypisuje go na ekran, aby uzytkownik wiedzial co zostalo wylosowane
+		}
+		printf("\nposortowany zestaw: "); 
+		QuickSort(tab, tab + iloscLiczb - 1); // tak na prawde nie wiem czm to dziala bo nie powinno, funkcja sortujaca jest napisana na wskaznikach typu int ...
+		for (int i = 0; i < iloscLiczb; i++) {
+			printf("%f ", *(tab + i)); // wypisuje posortowany zestaw na ekran
+		}
+		printf("\n");
+	}
+	else { // przypadek nieudanego zaalokowania miejsca na nasza tablice
+		printf("ERROR - nie udalo sie zaalokowac miejsca na tablice\n");
 	}
 	KONIEC_PROGRAMU
 }
 
 main() {
 	srand(time(NULL));
-	//Zadanie75();
-	//Zadanie76();
-	//Zadanie77();
-	//Zadanie78();
-	//Zadanie79();
+	Zadanie75();
+	Zadanie76();
+	Zadanie77();
+	Zadanie78();
+	Zadanie79();
 	Zadanie80();
+	Zadanie81();
 	return 0;
 }
