@@ -66,10 +66,45 @@ void Zadanie82() {
 
 void Zadanie83() {
 	printf("Zadanie nr. 83 - program do obliczenia wartosci wielomianu\n");
-	int stopienWielomianu = 1;
-	do {
-
+	// wczytanie stopnia wielomianu
+	int stopienWielomianu = 1; 
+	do { 
+		printf("podaj stopien wielomianu: ");
+		while (scanf_s("%d", &stopienWielomianu) != 1 || getchar() != '\n') {
+			CZYSZCZENIE_BUFORA
+			ERROR_WCZYTYWANIE
+		}
 	} while (stopienWielomianu < 0 || stopienWielomianu > 100);
+
+	// wyswietlenie uzytkonwikowi, w jakiej formie jest rozpatrywany dany wielomian
+	printf("wielomian ma postac: W(x) =");
+	for (int i = 0; i < stopienWielomianu + 1; i++) {
+		printf(" a%d*x^%d", i, stopienWielomianu - i);
+		if (i != stopienWielomianu) {
+			printf("+");
+		}
+		else {
+			printf("\n");
+		}
+	}
+
+	// wczytanie wspolczynnikow, stojacych przy x-ach danego wielomianu
+	int* wspolczynniki = (int*)malloc(sizeof(int) * stopienWielomianu);
+	if (wspolczynniki != NULL) {
+		for (int i = 0; i < wspolczynniki; i++) {
+			int wpis;
+			printf("podaj wspolczynnik a%d: ", i);
+			while (scanf_s("%d", &wpis) != 1 || getchar() != '\n') {
+				CZYSZCZENIE_BUFORA
+				ERROR_WCZYTYWANIE
+			}
+		}
+		// wczytanie, dla jakiego x liczymy wartosc podanego wielomianu
+
+	}
+	else {
+		ERROR_ALOKACJA
+	}
 	KONIEC_PROGRAMU
 }
 
