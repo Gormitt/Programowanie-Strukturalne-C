@@ -57,6 +57,7 @@ void Zadanie82() {
 		if (iloscPar == 0) {
 			printf("w podanym zestawie liczb nie wystepuje zadna para\n");
 		}
+		free(tab);
 	}
 	else {
 		ERROR_ALOKACJA
@@ -77,7 +78,7 @@ void Zadanie83() {
 	} while (stopienWielomianu < 0 || stopienWielomianu > 100);
 
 	// wyswietlenie uzytkonwikowi, w jakiej formie jest rozpatrywany dany wielomian
-	printf("wielomian ma postac: W(x) =");
+	printf("wspolczynniki oraz x rozpatrujemy jako liczby calkowite\nwielomian ma postac: W(x) =");
 	for (int i = 0; i < stopienWielomianu + 1; i++) {
 		printf(" a%d*x^%d", i, stopienWielomianu - i);
 		if (i != stopienWielomianu) {
@@ -89,18 +90,33 @@ void Zadanie83() {
 	}
 
 	// wczytanie wspolczynnikow, stojacych przy x-ach danego wielomianu
+	stopienWielomianu++;
 	int* wspolczynniki = (int*)malloc(sizeof(int) * stopienWielomianu);
 	if (wspolczynniki != NULL) {
-		for (int i = 0; i < wspolczynniki; i++) {
+		int x; // dla tego argumentu policzymy W(x)
+		int potegaLiczbyX = 1;
+		int wynik = 0;
+		for (int i = 0; i < stopienWielomianu; i++) {
 			int wpis;
 			printf("podaj wspolczynnik a%d: ", i);
 			while (scanf_s("%d", &wpis) != 1 || getchar() != '\n') {
 				CZYSZCZENIE_BUFORA
-				ERROR_WCZYTYWANIE
+				ERROR_ALOKACJA
 			}
+			*(wspolczynniki + i) = wpis;
 		}
 		// wczytanie, dla jakiego x liczymy wartosc podanego wielomianu
-
+		printf("podaj x, dla ktorego program policzy wartosc: ");
+		while (scanf_s("%d", &x) != 1 || getchar() != '\n') {
+			CZYSZCZENIE_BUFORA
+			ERROR_WCZYTYWANIE
+		}
+		for (int i = stopienWielomianu - 1; i >= 0; i--) {
+			wynik += *(wspolczynniki + i) * potegaLiczbyX;
+			potegaLiczbyX *= x;
+		}
+		printf("W(%d) = %d\n", stopienWielomianu, wynik);
+		free(wspolczynniki);
 	}
 	else {
 		ERROR_ALOKACJA
@@ -108,8 +124,52 @@ void Zadanie83() {
 	KONIEC_PROGRAMU
 }
 
+void Zadanie84() {
+	/*
+	wg. mnie najoptymalniejszym algorytmem jest ostatni z wyszczegolnionych
+	(1) i (2) pierwszy jest zdecydowanie najgorszy: trzeba policzyc osobno licznik i mianownik, a potem podzielic
+	(3) i (4) sa wg. mnie porownywalnie szybkie, lecz ten ostatni jest prostrzy w zapisie algorytmicznym
+	*/
+	printf("Zadanie nr. 84 - program do wyswietlenia trojkata Pascala\n");
+	// obliczenie 29 po 14
+	double wartoscDwumianu = 1;
+	int n = 29;
+	int k = 14;
+	for (int i = 1; i <= n - k; i++) {
+		wartoscDwumianu *= (1 + (double)k / (double)i);
+	}
+	printf("wynikiem %d po %d jest %.0lf\n", n, k, wartoscDwumianu);
+	// narysowanie trojkata pascala z 35 wierszy
+	int liczbaWierszy = 25;
+	int liczbaOperacji = 0;
+	for (int wiersz = 0; wiersz <= liczbaWierszy; wiersz++) {
+		if (wiersz == 0) {
+			printf("  1\n");
+		}
+		else {
+			// tu jest rekurencyjny wzor na silnie n po k + 1
+			// n po k + 1 to n po k razy (n - k) / (k + 1)
+			// wiemy ze kazdy wiersz zaczyna sie od 1, zatem kazda kolejna komorke w rzedzie nalezy pomnozyc przez (n - k) / (k + 1)
+			// gdzie n i k to sa skladniki potrzebne do policzenia poprzedniego symbolu newtona
+			wartoscDwumianu = 1;
+			for (int kolumna = 1; kolumna < wiersz + 1; kolumna++) {
+				printf("%8.0lf ", wartoscDwumianu);
+				n = wiersz;
+				k = kolumna - 1;
+				wartoscDwumianu *= ((double)n - (double)k) / ((double)k + 1.0);
+				liczbaOperacji += 4; // policzenie kazdego symbolu newtona to jest pommnozenie przez iloraz dwoch sum poprzedniego symbolu [a ze pierwszy w rzedzie nie wymaga zadnej operacji, wystarcza 4 do obliczenia kazdej komorki]
+			}
+			printf("%8.0lf\n", wartoscDwumianu);
+		}
+	}
+	printf("ilosc rzedow: %d, ilosc matematycznych operacji: %d\n", liczbaWierszy, liczbaOperacji);
+
+	KONIEC_PROGRAMU
+}
+
 main() {
 	//Zadanie82();
-	Zadanie83();
+	//Zadanie83();
+	Zadanie84();
 	return 0;
 }
