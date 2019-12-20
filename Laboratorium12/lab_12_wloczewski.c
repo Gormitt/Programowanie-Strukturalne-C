@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 #define CZYSZCZENIE_BUFORA while(getchar() != '\n') {}
 #define ERROR_WCZYTYWANIE printf("ERROR - blad podczas wczytywania danych, prosze sprobuj ponownie: ");
@@ -44,7 +45,7 @@ void Zadanie82() {
 				if (*(tab + i) == *(tab + j)) {
 					iloscPowtorzen++;
 					if (iloscPowtorzen > 1) {
-						*(tab + j) = NULL;
+						*(tab + j) = NULL; // poprawiæ niezgodnoœæ typu !!!
 					}
 				}
 			}
@@ -140,7 +141,7 @@ void Zadanie84() {
 	}
 	printf("wynikiem %d po %d jest %.0lf\n", n, k, wartoscDwumianu);
 	// narysowanie trojkata pascala z 35 wierszy
-	int liczbaWierszy = 25;
+	int liczbaWierszy = 35;
 	int liczbaOperacji = 0;
 	for (int wiersz = 0; wiersz <= liczbaWierszy; wiersz++) {
 		if (wiersz == 0) {
@@ -157,7 +158,7 @@ void Zadanie84() {
 				n = wiersz;
 				k = kolumna - 1;
 				wartoscDwumianu *= ((double)n - (double)k) / ((double)k + 1.0);
-				liczbaOperacji += 4; // policzenie kazdego symbolu newtona to jest pommnozenie przez iloraz dwoch sum poprzedniego symbolu [a ze pierwszy w rzedzie nie wymaga zadnej operacji, wystarcza 4 do obliczenia kazdej komorki]
+				liczbaOperacji += 4; // policzenie kazdego symbolu newtona to jest pommnozenie przez iloraz dwoch sum z³o¿onych z n i k z poprzedniego symbolu [a ze pierwszy w rzedzie nie wymaga zadnej operacji, bo to 1, wystarcza 4 do obliczenia kazdej komorki]
 			}
 			printf("%8.0lf\n", wartoscDwumianu);
 		}
@@ -167,9 +168,78 @@ void Zadanie84() {
 	KONIEC_PROGRAMU
 }
 
+void Zadanie86() {
+	// jedna wspolrzedna na x to wartosc 0.196349
+	printf("Zadanie nr. 86 - program do wyswietlenia wykresu funkcji\n");
+
+	double jednostkaOsiX = 0.196349;
+	double jednostkaOsiY = 0.25;
+	int dlugoscNaX = 32;
+	int dlugoscNaY = 5;
+
+	double* wartosciFunkcji = (double*)malloc(sizeof(double) * dlugoscNaX);
+	if (wartosciFunkcji != NULL) {
+		// wczytanie wartosci funkcji do tablicy
+		double argument = 0;
+		for (int i = 0; i < dlugoscNaX; i++) {
+			*(wartosciFunkcji + i) = sin(argument);
+			argument += jednostkaOsiX;
+		}
+		// narysowanie tego na ukladzie wspolrzednych
+		// 1. narysowanie wszytkiego nad osia x
+		for (int y = dlugoscNaY; y > 0; y--) {
+			for (int x = 0; x < dlugoscNaX; x++) {
+				if (*(wartosciFunkcji + x) <= (y + 0.5) * jednostkaOsiY && *(wartosciFunkcji + x) > (y - 0.5) * jednostkaOsiY) {
+					printf("*");
+				}
+				else if (x == 0){
+					printf("|");
+				}
+				else {
+					printf(" ");
+				}
+			}
+			printf("\n");
+		}
+		// 2. narysowanie osi x
+		for (int x = 0; x < dlugoscNaX; x++) {
+			if (*(wartosciFunkcji + x) <= 0.5 * jednostkaOsiY && *(wartosciFunkcji + x) >= -0.5 * jednostkaOsiY) {
+				printf("*");
+			}
+			else if (x == 0) {
+				printf("|");
+			}
+			else {
+				printf("-");
+			}
+		}
+		printf("\n");
+		// 3. narysowanie wszystkiego pod osia x
+		for (int y = -1; y >= -dlugoscNaY; y--) {
+			for (int x = 0; x < dlugoscNaX; x++) {
+				if (*(wartosciFunkcji + x) < (y + 0.5) * jednostkaOsiY && *(wartosciFunkcji + x) >= (y - 0.5) * jednostkaOsiY) {
+					printf("*");
+				}
+				else if (x == 0) {
+					printf("|");
+				}
+				else {
+					printf(" ");
+				}
+			}
+			printf("\n");
+		}
+	}
+	else {
+		ERROR_ALOKACJA
+	}
+	KONIEC_PROGRAMU
+}
+
 main() {
 	//Zadanie82();
 	//Zadanie83();
-	Zadanie84();
+	//Zadanie84();
+	Zadanie86();
 	return 0;
 }
