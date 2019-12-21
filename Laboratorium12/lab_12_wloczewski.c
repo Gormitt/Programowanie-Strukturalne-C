@@ -230,6 +230,7 @@ void Zadanie86() {
 			}
 			printf("\n");
 		}
+		free(wartosciFunkcji);
 	}
 	else {
 		ERROR_ALOKACJA
