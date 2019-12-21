@@ -187,6 +187,7 @@ void Zadanie86() {
 		}
 		// narysowanie tego na ukladzie wspolrzednych
 		// 1. narysowanie wszytkiego nad osia x
+		printf("^\n");
 		for (int y = dlugoscNaY; y > 0; y--) {
 			for (int x = 0; x < dlugoscNaX; x++) {
 				if (*(wartosciFunkcji + x) <= (y + 0.5) * jednostkaOsiY && *(wartosciFunkcji + x) > (y - 0.5) * jednostkaOsiY) {
@@ -213,7 +214,7 @@ void Zadanie86() {
 				printf("-");
 			}
 		}
-		printf("\n");
+		printf(">\n");
 		// 3. narysowanie wszystkiego pod osia x
 		for (int y = -1; y >= -dlugoscNaY; y--) {
 			for (int x = 0; x < dlugoscNaX; x++) {
