@@ -238,9 +238,9 @@ void Zadanie86() {
 }
 
 main() {
-	//Zadanie82();
-	//Zadanie83();
-	//Zadanie84();
+	Zadanie82();
+	Zadanie83();
+	Zadanie84();
 	Zadanie86();
 	return 0;
 }
