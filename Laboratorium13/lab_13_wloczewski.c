@@ -202,7 +202,12 @@ void Zadanie91() {
 				ERROR_WCZYTYWANIE
 			}
 			macierz[y][x] = wpis;
-			suma += wpis;
+		}
+	}
+
+	for (int y = 0; y < wysokosc; y++) {
+		for (int x = 0; x < szerokosc; x++) {
+			suma += macierz[y][x];
 		}
 	}
 	  
@@ -213,16 +218,88 @@ void Zadanie91() {
 void Zadanie92() {
 	printf("Zadanie nr. 92 - program do obliczenia sumy glownej przekatnej kwadratowej macierzy\n");
 	int macierz[25][25];
+	int wysokosc, szerokosc;
+	int suma = 0;
+	do {
+		printf("podaj wysokosc i szerokosc z przedzialu (0, 25] oddzielone spacja, tak zeby byly takie same: ");
+		while (scanf_s("%d %d", &wysokosc, &szerokosc) != 2 || getchar() != '\n') {
+			CzyszczenieBufora();
+			ERROR_WCZYTYWANIE
+		}
+	} while (wysokosc <= 0 || wysokosc > 25 || szerokosc <= 0 || szerokosc > 25 || wysokosc != szerokosc);
 
+	for (int y = 0; y < wysokosc; y++) {
+		for (int x = 0; x < szerokosc; x++) {
+			int wpis;
+			printf("wpisz wartosc do komorki %d %d: ", x + 1, y + 1);
+			while (scanf_s("%d", &wpis) != 1 || getchar() != '\n') {
+				CzyszczenieBufora();
+				ERROR_WCZYTYWANIE
+			}
+			macierz[y][x] = wpis;
+		}
+	}
+
+	int indeksPrzekatnej = 0;
+	for (int y = 0; y < wysokosc; y++) {
+		for (int x = 0; x < szerokosc; x++) {
+			if (x == indeksPrzekatnej) {
+				suma += macierz[y][x];
+			}
+		}
+		indeksPrzekatnej++;
+	}
+
+	printf("suma glownej przkatnej macierzy to: %d\n", suma);
+	KONIEC_PROGRAMU
+}
+
+void Zadanie93() {
+	printf("Zadanie nr. 93 - program do sumownania elementow ponad glowna przekatna\n");
+	int macierz[25][25];
+	int wysokosc, szerokosc;
+	int suma = 0;
+	do {
+		printf("podaj wysokosc i szerokosc z przedzialu (0, 25] oddzielone spacja, tak zeby byly takie same: ");
+		while (scanf_s("%d %d", &wysokosc, &szerokosc) != 2 || getchar() != '\n') {
+			CzyszczenieBufora();
+			ERROR_WCZYTYWANIE
+		}
+	} while (wysokosc <= 0 || wysokosc > 25 || szerokosc <= 0 || szerokosc > 25 || wysokosc != szerokosc);
+
+	for (int y = 0; y < wysokosc; y++) {
+		for (int x = 0; x < szerokosc; x++) {
+			int wpis;
+			printf("wpisz wartosc do komorki %d %d: ", x + 1, y + 1);
+			while (scanf_s("%d", &wpis) != 1 || getchar() != '\n') {
+				CzyszczenieBufora();
+				ERROR_WCZYTYWANIE
+			}
+			macierz[y][x] = wpis;
+		}
+	}
+
+	int indeksPrzekatnej = 0;
+	for (int y = 0; y < wysokosc; y++) {
+		for (int x = 0; x < szerokosc; x++) {
+			if (x > indeksPrzekatnej) {
+				suma += macierz[y][x];
+			}
+		}
+		indeksPrzekatnej++;
+	}
+
+	printf("suma elementow ponad glowna przkatna macierzy to: %d\n", suma);
 	KONIEC_PROGRAMU
 }
 
 main() {
-	//Zadanie87();
-	//Zadanie88();
-	//Zadanie89();
-	//Zadanie90();
-	//Zadanie91();
+	/Zadanie87();
+	Zadanie88();
+	Zadanie89();
+	Zadanie90();
+	Zadanie91();
 	Zadanie92();
+	Zadanie93();
 	return 0;
 }
