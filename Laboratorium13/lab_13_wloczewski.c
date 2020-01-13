@@ -294,7 +294,7 @@ void Zadanie93() {
 }
 
 main() {
-	/Zadanie87();
+	Zadanie87();
 	Zadanie88();
 	Zadanie89();
 	Zadanie90();
