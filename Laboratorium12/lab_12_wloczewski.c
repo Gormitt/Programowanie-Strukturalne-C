@@ -128,8 +128,9 @@ void Zadanie83() {
 void Zadanie84() {
 	/*
 	wg. mnie najoptymalniejszym algorytmem jest ostatni z wyszczegolnionych
-	(1) i (2) pierwszy jest zdecydowanie najgorszy: trzeba policzyc osobno licznik i mianownik, a potem podzielic
-	(3) i (4) sa wg. mnie porownywalnie szybkie, lecz ten ostatni jest prostrzy w zapisie algorytmicznym
+	(1) i (2) wychodzenie poza skale
+	(4) wynik jest niecalkowity, i zaokreaglenie powoduje niedokladnosc w konsturkcji trojkata
+	(3) gdy w opowiedni sposob dodawac i dzielic, wynik bedzie zawsze calkowity, poniewz dodanie 2 kolejnych skladnikow pozwoli nam podzielic przez 2, 3 przez 3 itd...
 	*/
 	printf("Zadanie nr. 84 - program do wyswietlenia trojkata Pascala\n");
 	// obliczenie 29 po 14
