@@ -66,6 +66,8 @@ void Zadanie94() {
 		}
 	}
 
+	WypiszMacierz(macierz, rozmiar, rozmiar);
+
 	if (przerwijPetle) {
 		printf("ponizej przekatnej (wlacznie z nia) nie ma samych zer\n");
 	}
@@ -94,6 +96,8 @@ void Zadanie95() {
 		}
 	}
 
+	WypiszMacierz(macierz, wysokosc, szerokosc);
+
 	printf("rzad, ktory zmieniamy, ");
 	int a = WczytajLiczbe(0, wysokosc - 1);	// rzad ktory chcemy zamienic
 	printf("rzad, ktory bedziemy tam wstawiac");
@@ -109,9 +113,93 @@ void Zadanie95() {
 	KONIEC_PROGRAMU
 }
 
+void Zadanie96() {
+	printf("Zadanie nr. 96 - program do zamiany rzedu z kolumna w macierzy kwadratowej\n");
+	int macierz[ROZMIAR_MACIERZY][ROZMIAR_MACIERZY];
+	int wymiar;
+	int s = 0, max = 0; // s to nr kolumny i wiersza, ktorych przeciecie to najwiekszy co do wartosci element glownej przekatnej macierzy
+	printf("wczytywanie szerokosci kwadratowej macierzy, ");
+	wymiar = WczytajLiczbe(1, ROZMIAR_MACIERZY);
+
+	for (int i = 0; i < wymiar; i++) {
+		for (int j = 0; j < wymiar; j++) {
+			int wpis;
+			printf("wczytywanie wspolrzednej x: %d y: %d, ", j + 1, i + 1);
+			wpis = WczytajLiczbe(0, 9);
+			macierz[i][j] = wpis;
+			if (i == j && (i == 0 || macierz[i][j] > max)) { 
+				// wpis to wartosc wpisywana do glownej przekatnej
+				// w przypadku wpisywania pierwszej wartosci czesc "macierz[i][j] > max" sie nie wykona wiec nie bedzie bledu
+				// w przypadku wpisywania nie pierwszej wartosci, porwnanie ma sens, poniewaz zmienna max posiada wpisana wczesniej wartosc
+				s = i;
+				max = macierz[i][j];
+			}
+		}
+	}
+
+	WypiszMacierz(macierz, wymiar, wymiar);
+	printf("max: %d\n", max);
+
+	for (int i = 0; i < wymiar; i++) {
+		int tmp = macierz[i][s]; // stala jest wspolrzedna w rzedzie, a iterujemy po kolejnych rzedach czyli w jednej kolumnie
+		macierz[i][s] = macierz[s][i]; // rzad jest ustalony, iterujemy po kolejnych elematach w rzedzie
+		macierz[s][i] = tmp;
+	}
+
+	WypiszMacierz(macierz, wymiar, wymiar);
+
+	KONIEC_PROGRAMU
+}
+
+void Zadanie97() {
+	printf("Zadanie nr. 97 - program do sumowania macierzy\n");
+	int macierzA[ROZMIAR_MACIERZY][ROZMIAR_MACIERZY], macierzB[ROZMIAR_MACIERZY][ROZMIAR_MACIERZY];
+	int szerokosc, wysokosc;
+
+	printf("wczytywanie szerokosci macierzy A i B, ");
+	szerokosc = WczytajLiczbe(1, ROZMIAR_MACIERZY);
+	printf("wczytywanie wysokosci macierzy A i B, ");
+	wysokosc = WczytajLiczbe(1, ROZMIAR_MACIERZY);
+
+	// wczytywanie pierwszej macierzy
+	printf("wczytywanie peirwszej macierzy [A]\n");
+	for (int i = 0; i < wysokosc; i++) {
+		for (int j = 0; j < szerokosc; j++) {
+			printf("wczytywanie komorki x: %d y: %d, ", j + 1, i + 1);
+			macierzA[i][j] = WczytajLiczbe(0, 9);
+		}
+	}
+
+	// wczytywanie drugiej macierzy
+	printf("wczytywanie drugiej macierzy [B]\n");
+	for (int i = 0; i < wysokosc; i++) {
+		for (int j = 0; j < szerokosc; j++) {
+			printf("wczytywanie komorki x: %d y: %d, ", j + 1, i + 1);
+			macierzB[i][j] = WczytajLiczbe(0, 9);
+		}
+	}
+
+	printf("MACIERZ A: \n");
+	WypiszMacierz(macierzA, wysokosc, szerokosc);
+	printf("MACIERZ B: \n");
+	WypiszMacierz(macierzB, wysokosc, szerokosc);
+
+	for (int i = 0; i < wysokosc; i++) {
+		for (int j = 0; j < szerokosc; j++) {
+			macierzA[i][j] += macierzB[i][j];
+		}
+	}
+
+	printf("suma macierzy to: \n");
+	WypiszMacierz(macierzA, wysokosc, szerokosc);
+
+	KONIEC_PROGRAMU
+}
+
 main() {
 	//Zadanie94();
 	//Zadanie95();
-
+	//Zadanie96();
+	//Zadanie97();
 	return 0;
 }
