@@ -1,6 +1,7 @@
 // Zadanie 94 - 100
 
 #include <stdio.h>
+#include <math.h>
 
 #define ERROR_WCZYTYWANIE printf("ERROR - blad podczas wczytywania danych, prosze sprobuj ponownie: ");
 #define ERROR_ALOKACJA printf("ERROR - blad podczas alokowania miejsca na tablice\n");
@@ -196,10 +197,117 @@ void Zadanie97() {
 	KONIEC_PROGRAMU
 }
 
+void Zadanie98() {
+	printf("Zadanie nr. 98 - program do mnozenia macierzy\n");
+	int macierzA[ROZMIAR_MACIERZY][ROZMIAR_MACIERZY], macierzB[ROZMIAR_MACIERZY][ROZMIAR_MACIERZY];
+	int n, m, k;
+
+	printf("wczytywanie szerokosci macierzy A i wysokosci macierzy B, ");
+	n = WczytajLiczbe(1, ROZMIAR_MACIERZY);
+	printf("wczytywanie wysokosci macierzy A, ");
+	m = WczytajLiczbe(1, ROZMIAR_MACIERZY);
+	printf("wczytywanie szerokosci macierzy B, ");
+	k = WczytajLiczbe(1, ROZMIAR_MACIERZY);
+
+	printf("wczytywanie macierzy A o wymiarach %d x %d\n", m, n);
+	for (int i = 0; i < m; i++) {
+		for (int j = 0; j < n; j++) {
+			printf("wczytywanie wartosci do komorki (%d, %d), ", i + 1, j + 1);
+			macierzA[i][j] = WczytajLiczbe(-10, 10);
+		}
+	}
+
+	printf("wczytywanie macierzy B o wymiarach %d x %d\n", n, k);
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < k; j++) {
+			printf("wczytywanie wartosci do komorki (%d, %d), ", i + 1, j + 1);
+			macierzB[i][j] = WczytajLiczbe(-10, 10);
+		}
+	}
+
+	WypiszMacierz(macierzA, m, n);
+	WypiszMacierz(macierzB, n, k);
+
+	int macierzC[ROZMIAR_MACIERZY][ROZMIAR_MACIERZY] = { 0 };
+	for (int i = 0; i < m; i++) {
+		for (int j = 0; j < k; j++) {
+			for (int k = 0; k < n; k++) {
+				macierzC[i][j] += macierzA[i][k] * macierzB[k][j];
+			}
+		}
+	}
+
+	WypiszMacierz(macierzC, m, k);
+	
+	KONIEC_PROGRAMU
+}
+
+void Zadanie99() {
+	printf("Zadanie nr. 99 - program do operacji na macierzach\n");
+	int macierz[ROZMIAR_MACIERZY][ROZMIAR_MACIERZY];
+	int wysokosc, szerokosc;
+	
+	printf("wczytywanie wysokosci macierzy, ");
+	wysokosc = WczytajLiczbe(1, ROZMIAR_MACIERZY);
+	printf("wczytywanie szerokosci macierzy, ");
+	szerokosc = WczytajLiczbe(1, ROZMIAR_MACIERZY);
+
+	for (int i = 0; i < wysokosc; i++) {
+		for (int j = 0; j < szerokosc; j++) {
+			printf("wczytywanie komorki (x: %d, y: %d), ", j + 1, i + 1);
+			macierz[i][j] = WczytajLiczbe(0, 9);
+		}
+	}
+
+	int maks = 0;
+	for (int i = 0; i < wysokosc; i++) {
+		int suma = 0;
+		for (int j = 0; j < szerokosc; j++) {
+			suma += macierz[i][j];
+		}
+		if (suma > maks) maks = suma;
+	}
+	printf("najwieksza sumwa wartosci w danym rzedzie to: %d\n", maks);
+
+	KONIEC_PROGRAMU
+}
+
+void Zadanie100() {
+	printf("Zadanie nr. 100 - program do obliczen na macierzach\n");
+	float macierz[ROZMIAR_MACIERZY][ROZMIAR_MACIERZY];
+	int wysokosc, szerokosc;
+
+	printf("wczytywanie wysokosci macierzy, ");
+	wysokosc = WczytajLiczbe(1, ROZMIAR_MACIERZY);
+	printf("wczytywanie szerokosci macierzy, ");
+	szerokosc = WczytajLiczbe(1, ROZMIAR_MACIERZY);
+
+	for (int i = 0; i < wysokosc; i++) {
+		for (int j = 0; j < szerokosc; j++) {
+			printf("wczytywanie komorki (x: %d, y: %d), ", j + 1, i + 1);
+			macierz[i][j] = WczytajLiczbe(0, 9);
+		}
+	}
+
+	float wynik = 0;
+	for (int i = 0; i < wysokosc; i++) {
+		for (int j = 0; j < szerokosc; j++) {
+			wynik += pow(abs(macierz[i][j]), 2.0);
+		}
+	}
+	wynik = sqrtf(wynik);
+
+	printf("suma kwadratow kazdego z elementow to: %f\n", wynik);
+	KONIEC_PROGRAMU
+}
+
 main() {
-	//Zadanie94();
-	//Zadanie95();
-	//Zadanie96();
-	//Zadanie97();
+	Zadanie94();
+	Zadanie95();
+	Zadanie96();
+	Zadanie97();
+	Zadanie98();
+	Zadanie99();
+	Zadanie100();
 	return 0;
 }
